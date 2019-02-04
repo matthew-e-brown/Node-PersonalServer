@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/matthew-e-brown/Learning-Node#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "node-html-parser": "^1.1.12"
   }
 }
