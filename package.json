@@ -1,0 +1,26 @@
+{
+  "name": "learning-node",
+  "version": "1.0.0",
+  "description": "Trying my hand at Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log(\"test\");"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthew-e-brown/Learning-Node.git"
+  },
+  "keywords": [
+    "node.js",
+    "newbie"
+  ],
+  "author": "matthew-e-brown",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthew-e-brown/Learning-Node/issues"
+  },
+  "homepage": "https://github.com/matthew-e-brown/Learning-Node#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
