@@ -1,0 +1,1 @@
+A grid of patterns is created by (x, y) coordinates from two lines of circles, with points representing those x and y points respectively, all rotating at different speeds.

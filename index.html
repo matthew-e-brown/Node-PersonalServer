@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Matthew Brown</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://use.typekit.net/qiv6yxq.css">
+  <script src="js-libs/jquery-3.3.1.min.js"></script>
+  <script src="js-libs/p5.min.js"></script>
+  <script src="js-libs/prism.js"></script>
+  <link rel="stylesheet" href="js-libs/prism-themes/prism-okaidia.css">
+  <link rel="stylesheet" href="master.css">
+  <script src="sketches.js"></script>
+  <script src="svg-converter.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <section id="head" class="main head bottom-spacer">
+    <h1 class="title">Matthew Brown</h1>
+    <div class="greet">
+      <h2 class="indent">Hi!</h2>
+      <p class="indent">I'm a university student studying Computer Science at Trent University as part of their inaugural run of the Computing Systems Co-op program.</p>
+      <p class="indent">I've got experience with HTML, CSS, and JavaScript, as well as p5.js and Processing (and technically, by extension, Java), and a little bit of C#. I'm also moderately experienced with Photoshop, Illustrator, Premiere Pro, and After Effects.</p>
+    </div>
+  </section>
+
+  <section id="socials" class="main socials bottom-spacer">
+    <p>Here's where you can find me:</p>
+    <div class="social-list">
+      <a class="social-link" href="https://github.com/matthew-e-brown" target="_blank">
+        <img class="link-svg" src="site-images/GitHub-White.svg" alt="GitHub" />
+      </a>
+      <a class="social-link" href="https://stackoverflow.com/users/10549827/" target="_blank">
+        <img class="link-svg" src="site-images/StackOverflow-White.svg" alt="StackOverflow" />
+      </a>
+      <a class="social-link" href="https://twitter.com/MattShnoop" target="_blank">
+        <img class="link-svg" src="site-images/Twitter-White.svg" alt="Twitter" />
+      </a>
+      <a class="social-link" href="https://www.linkedin.com/in/matthewebrown17" target="_blank">
+        <img class="link-svg" src="site-images/LinkedIn-White.svg" alt="LinkedIn" />
+      </a>
+    </div>
+    <script>svgConvert();</script>
+  </section>
+
+  <section id="about" class="main about bottom-spacer">
+    <p>
+      This website will act mostly as a repository for my JavaScript projects, as well as host links to my other programming projects. Look below for a list of my in-browser (p5.js) examples and projects.
+    </p>
+  </section>
+
+  <section id="sketches" class="main sketches bottom-spacer">
+    <script>
+      $.ajax({
+        url: "/getsketches",
+        success: response => {
+          let data = JSON.parse(response);
+          let inner = "";
+          data.forEach((sketch) => {inner += `<div class="sketch-container">
+            <h3>${sketch.title}</h3>
+            <h4>${sketch.dateString}</h4>
+            <p class="indent">${sketch.desc}</p>
+            <a href="javascript:setFrame('${sketch.pathToSrc}')" class="button noChange">Run Sketch</a>
+            <a href="javascript:selectFile('$s->pathto', 0)" class="button noChange">View Source</a>
+          </div>`});
+          $("#sketches").html(inner);
+        }
+      });
+    </script>
+  </section>
+
+  <section id="preview" class="main preview-hidden bottom-spacer">
+    <iframe id="sketchDisplay" class="sketch-displayer" src="" scrolling="no"></iframe>
+  </section>
+
+  <section id="source" class="main sourcecode-hidden bottom-spacer">
+    <div id="tabs" class="tab-holder">
+    </div>
+    <div class="code-holder">
+      <pre class="line-numbers" style="max-height: 30em;"><code id="src-code"></code></pre>
+    </div>
+  </section>
+
+  <div><a href="/.old/index.html" style="color: rgb(45, 45, 45)">old</a></div>
+
+</body>
+
+</html>
