@@ -3,7 +3,7 @@
 
 const express = require("express");
 const fs = require("fs");
-const parser = require("node-html-parser");
+const htmlparse = require("node-html-parser");
 
 const app = express();
 
@@ -14,13 +14,78 @@ const server = app.listen(3000, () => {
 app.use(express.static("site"));
 
 app.get("/getsketches", (request, response) => {
-  const data = request.query;
-
-  fs.readdir("site/p5/", (err, blob) => {
-    if (err) throw err;
-    let reply = "";
-    for (let obj of blob) reply += `${obj} `
-    response.send(reply);
+  let folderNames = [];
+  let paths = [];
+  fs.readdirSync("site/p5/").forEach((file) => {
+    let stat = fs.statSync(`site/p5/${file}`);
+    if (stat.isDirectory()) {
+      folderNames.push(file);
+      paths.push(`p5/${file}`);
+    }
   });
+  // folders = ['asteroids'];
+  // paths = ['site/p5/asteroids'];
+  //Folders is now all the directories in the p5 folder (each sketch)
+  let reply = new Array(folderNames.length);
+  for (let i = 0; i < reply.length; i++) {
+    reply[i] = {};
 
+    //Path to HTML File
+    reply[i].pathToSrc = `${paths[i]}/${folderNames[i]}.html`;
+
+    //Title
+    let html = fs.readFileSync(`site/${reply[i].pathToSrc}`, "utf-8");
+    html = htmlparse.parse(html);
+    reply[i].title = html.querySelector("title").innerHTML;
+
+    //Description
+    try {
+      reply[i].desc = fs.readFileSync(`site/${paths[i]}/site-data/desc.txt`, "utf-8");
+    } catch {
+      reply[i].desc = "";
+    }
+
+    //Dates
+    try {
+      let dates = fs.readFileSync(`site/${paths[i]}/site-data/date.txt`, "utf-8").split("\r\n");
+      dates.pop(); //get rid of the "" element
+
+      for (let d = 0; d < dates.length; d++) dates[d] = new Date(dates[d]);
+      reply[i].dateString = (dates.length < 2) ? dateFormatCustom(dates[0]) : `${dateFormatCustom(dates[0])} to ${dateFormatCustom(dates[1])}`;
+      reply[i].dateUnix = dates[0].getTime();
+    } catch {
+      reply[i].dateString = "";
+      reply[i].dateUnix = Number.MAX_SAFE_INTEGER;
+    }
+  }
+
+  reply.sort((a, b) => a.dateUnix - b.dateUnix);
+  // for (let i = 0; i < reply.length; i++) delete reply[i].dateUnix;
+
+  response.send(JSON.stringify(reply));
 });
+
+function dateFormatCustom(date) {
+  let n = date.getDate(); //day of month, 0 - 31
+  let m = date.getMonth(); // 0 - 11
+  let y = date.getFullYear(); // 2019
+
+  let months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+
+  return `${months[m]}. ${n}${((day) => {
+    let ld = day.toString().split('').pop(); //last digit
+    switch (ld) {
+      case '1':
+        return (day != 11) ? 'st' : 'th';
+      case '2':
+        return (day != 12) ? 'nd' : 'th';
+      case '3':
+        return (day != 13) ? 'rd' : 'th';
+      default:
+        return 'th';
+    }
+  })(n)}, ${y}`;
+}
