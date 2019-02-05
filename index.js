@@ -11,20 +11,20 @@ const server = app.listen(3000, () => {
   console.log("listening on port:3000");
 });
 
-app.use(express.static("site"));
+app.use(express.static("public"));
 
 app.get("/getsketches", (request, response) => {
   let folderNames = [];
   let paths = [];
-  fs.readdirSync("site/p5/").forEach((file) => {
-    let stat = fs.statSync(`site/p5/${file}`);
+  fs.readdirSync("public/p5/").forEach((file) => {
+    let stat = fs.statSync(`public/p5/${file}`);
     if (stat.isDirectory()) {
       folderNames.push(file);
       paths.push(`p5/${file}`);
     }
   });
   // folders = ['asteroids'];
-  // paths = ['site/p5/asteroids'];
+  // paths = ['public/p5/asteroids'];
   //Folders is now all the directories in the p5 folder (each sketch)
   let reply = new Array(folderNames.length);
   for (let i = 0; i < reply.length; i++) {
@@ -34,20 +34,20 @@ app.get("/getsketches", (request, response) => {
     reply[i].pathToSrc = `${paths[i]}/${folderNames[i]}.html`;
 
     //Title
-    let html = fs.readFileSync(`site/${reply[i].pathToSrc}`, "utf-8");
+    let html = fs.readFileSync(`public/${reply[i].pathToSrc}`, "utf-8");
     html = htmlparse.parse(html);
     reply[i].title = html.querySelector("title").innerHTML;
 
     //Description
     try {
-      reply[i].desc = fs.readFileSync(`site/${paths[i]}/site-data/desc.txt`, "utf-8");
+      reply[i].desc = fs.readFileSync(`public/${paths[i]}/site-data/desc.txt`, "utf-8");
     } catch {
       reply[i].desc = "";
     }
 
     //Dates
     try {
-      let dates = fs.readFileSync(`site/${paths[i]}/site-data/date.txt`, "utf-8").split("\r\n");
+      let dates = fs.readFileSync(`public/${paths[i]}/site-data/date.txt`, "utf-8").split("\r\n");
       dates.pop(); //get rid of the "" element
 
       for (let d = 0; d < dates.length; d++) dates[d] = new Date(dates[d]);
