@@ -41,26 +41,25 @@ app.get("/getsketches", (request, response) => {
     //Description
     try {
       reply[i].desc = fs.readFileSync(`public/${paths[i]}/site-data/desc.txt`, "utf-8");
-      console.log(`${paths[i]} description check`);
+      // console.log(`${paths[i]} description check`);
     } catch (err) {
       reply[i].desc = "";
-      console.log(`${paths[i]} description failed`);
+      // console.log(`${paths[i]} description failed`);
     }
 
     //Dates
     try {
       let dates = fs.readFileSync(`public/${paths[i]}/site-data/date.txt`, "utf-8").split(/\r\n|\n/);
-      console.log(dates);
       dates.pop(); //get rid of the "" element
 
       for (let d = 0; d < dates.length; d++) dates[d] = new Date(dates[d]);
       reply[i].dateString = (dates.length < 2) ? dateFormatCustom(dates[0]) : `${dateFormatCustom(dates[0])} to ${dateFormatCustom(dates[1])}`;
-      reply[i].dateUnix = dates[0].getTime();
-      console.log(`${paths[i]} dates check`);
+      reply[i].dateUnix = (dates[1]) ? dates[1].getTime() : dates[0].getTime();
+      // console.log(`${paths[i]} dates check`);
     } catch (err) {
       reply[i].dateString = "";
       reply[i].dateUnix = Number.MAX_SAFE_INTEGER;
-      console.log(`${paths[i]} dates failed`);
+      // console.log(`${paths[i]} dates failed`);
     }
   }
 
