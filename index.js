@@ -7,8 +7,8 @@ const htmlparse = require("node-html-parser");
 
 const app = express();
 
-const server = app.listen(3000, () => {
-  console.log("listening on port:3000");
+const server = app.listen(80, () => {
+  console.log("listening on port:80");
 });
 
 app.use(express.static("public"));
@@ -41,7 +41,7 @@ app.get("/getsketches", (request, response) => {
     //Description
     try {
       reply[i].desc = fs.readFileSync(`public/${paths[i]}/site-data/desc.txt`, "utf-8");
-    } catch {
+    } catch (err) {
       reply[i].desc = "";
     }
 
@@ -53,7 +53,7 @@ app.get("/getsketches", (request, response) => {
       for (let d = 0; d < dates.length; d++) dates[d] = new Date(dates[d]);
       reply[i].dateString = (dates.length < 2) ? dateFormatCustom(dates[0]) : `${dateFormatCustom(dates[0])} to ${dateFormatCustom(dates[1])}`;
       reply[i].dateUnix = dates[0].getTime();
-    } catch {
+    } catch (err) {
       reply[i].dateString = "";
       reply[i].dateUnix = Number.MAX_SAFE_INTEGER;
     }
@@ -78,14 +78,10 @@ function dateFormatCustom(date) {
   return `${months[m]}. ${n}${((day) => {
     let ld = day.toString().split('').pop(); //last digit
     switch (ld) {
-      case '1':
-        return (day != 11) ? 'st' : 'th';
-      case '2':
-        return (day != 12) ? 'nd' : 'th';
-      case '3':
-        return (day != 13) ? 'rd' : 'th';
-      default:
-        return 'th';
+      case '1': return (day != 11) ? 'st' : 'th';
+      case '2': return (day != 12) ? 'nd' : 'th';
+      case '3': return (day != 13) ? 'rd' : 'th';
+      default: return 'th';
     }
   })(n)}, ${y}`;
 }
