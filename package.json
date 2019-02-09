@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matthew-e-brown/Learning-Node.git"
+    "url": "git+https://github.com/matthew-e-brown/Node-PersonalServer.git"
   },
   "keywords": [
     "node.js",
@@ -17,9 +17,9 @@
   "author": "matthew-e-brown",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/matthew-e-brown/Learning-Node/issues"
+    "url": "https://github.com/matthew-e-brown/Node-PersonalServer/issues"
   },
-  "homepage": "https://github.com/matthew-e-brown/Learning-Node#readme",
+  "homepage": "https://github.com/matthew-e-brown/Node-PersonalServer#readme",
   "dependencies": {
     "express": "^4.16.4",
     "node-html-parser": "^1.1.12"
