@@ -52,20 +52,22 @@
   <section id="sketches" class="main sketches bottom-spacer">
     <script>
       $.ajax({
-        url: "/getsketches",
+        url: "/getSketchList",
         success: response => {
-          let data = JSON.parse(response);
+          const data = JSON.parse(response);
           let inner = "";
-          data.forEach((sketch) => {inner += `<div class="sketch-container">
-            <h3>${sketch.title}</h3>
-            <h4>${sketch.dateString}</h4>
-            <p class="indent">${sketch.desc}</p>
-            <a href="javascript:setFrame('${sketch.pathToSrc}')" class="button noChange">Run Sketch</a>
-            <a href="javascript:selectFile('$s->pathto', 0)" class="button noChange">View Source</a>
-          </div>`});
+          data.forEach((sketch) => {
+            inner += `<div class="sketch-container">
+              <h3>${sketch.title}</h3>
+              <h4>${sketch.dateString}</h4>
+              <p class="indent">${sketch.desc}</p>
+              <button onclick="setFrame('${sketch.pathToSrc}')" class="button">Run Sketch</button>
+              <button onclick="setPreview('${sketch.pathToFolder}')" class="button">View Source</button>
+            </div>`
+          });
           $("#sketches").html(inner);
-        }
-      });
+        } // End of Success
+      }); // End of Ajax
     </script>
   </section>
 
@@ -74,14 +76,9 @@
   </section>
 
   <section id="source" class="main sourcecode-hidden bottom-spacer">
-    <div id="tabs" class="tab-holder">
-    </div>
-    <div class="code-holder">
-      <pre class="line-numbers" style="max-height: 30em;"><code id="src-code"></code></pre>
-    </div>
+    <div id="tabs" class="tab-holder"></div>
+    <div id="codeblocks" class="code-holder"></div>
   </section>
-
-  <div><a href="/.old/index.html" style="color: rgb(45, 45, 45)">old</a></div>
 
 </body>
 

@@ -24,55 +24,54 @@ function setFrame(path) {
   frame.setAttribute("src", path);
 }
 
-function selectFile(dir, tabIndex) {
-  let extension = "";
+function setPreview(pathToFolder) {
   $.ajax({
-    url: "getsources.php",
+    url: "/getSourceCode",
     method: "GET",
     data: {
-      directory: dir,
-      fileNumber: tabIndex
+      containingFolder: pathToFolder
     },
     success: response => {
-      console.log("RESPONSE OK");
-      /* Data is in the form:
-      response = {
-        body: 'contents of the file',
-        extension: 'html',
-        fileNames: ['sketch.js', 'asteroid.js', 'object.js']
-      }
-      */
-      let data = JSON.parse(response);
-      extension = data.extension;
+      const data = JSON.parse(response);
 
-      //Create all the tabs:
-      $("#tabs").empty();
-      for (const [i, fileName] of data.fileNames.entries()) {
-        $("#tabs").append(
-          `<button onclick="selectFile('${dir}', ${i})" class="${(i == tabIndex) ? "tab" : "tab inactive"}">${fileName}</button>`
-        );
-      }
+      //Create tabs & Codeblocks
+      $("#tabs").empty(); //Remove the old ones
+      $("#codeblocks").empty();
+      for (const [i, file] of data.entries()) {
+        const tabbutton = `<button id="${i}-src-tab" onclick="tab(event)" class="${file.mainFile ? "tab" : "tab inactive"}">${file.name}</button>`;
+        const codeblock = `<pre id="${i}-src-pre" class="code-block line-numbers language-${file.extn == "js" ? "javascript" : file.extn}" style="display: ${file.mainFile ? "block" : "none"}"><code id="${i}-src-code">${file.body}</code></pre>`
 
-      //Set the contents of the code block:
-      if (data.extension == "html") {
-        data.body = data.body.replace(/\</g, "&lt").replace(/\>/g, "&gt");
+        if (!file.mainFile) {
+          $("#tabs").append(tabbutton);
+          $("#codeblocks").append(codeblock);
+        } else if (file.mainFile) {
+          $("#tabs").prepend(tabbutton);
+          $("#codeblocks").prepend(codeblock);
+        }
       }
-      $("#src-code").html(data.body);
-    }
-  })
+    } // End of success
+  }) // End of Ajax call
+  .then(() => Prism.highlightAll())
   .then(() => {
-    //Then add the correct class for the language:
-    let cls = (extension == "js") ? "javascript" : extension;
-    $("#src-code").attr("class", "language-" + cls);
-  })
-  .then(() => Prism.highlightElement($("#src-code")[0]))
-  .then(() => {
-    let elt = $("#source")[0];
-    elt.className = elt.className.replace(/sourcecode-hidden/, "sourcecode-shown");
+    const element = /*$(`#source`)[0]*/document.getElementById("source");
+    element.className = element.className.replace(/hidden/, `shown`);
+    setTimeout(element.scrollIntoView({block: "end", behavior: "smooth"}), 100);
+  });
+}
 
-    setTimeout(() => elt.scrollIntoView({
-      block: 'end',
-      behavior: 'smooth'
-    }), 100);
+function tab(event) {
+  // Use the first character in the id of the clicked tab-button to set the right codeblock
+  const t = event.srcElement.id.charAt(0);
+
+  // Hide all the codeblocks
+  document.querySelectorAll("#codeblocks > pre").forEach((element) => {
+    element.style.display = "none";
+  });
+
+  $(`#${t}-src-pre`).css("display", "block");
+
+  document.querySelectorAll("#tabs > button").forEach((element) => {
+    const i = element.id.charAt(0);
+    element.className = (i == t) ? "tab" : "tab inactive";
   });
 }
