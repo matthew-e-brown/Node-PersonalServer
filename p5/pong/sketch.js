@@ -8,11 +8,8 @@ let font;
 
 let started;
 
-function preload() {
-  font = loadFont("137.otf");
-}
-
 function setup() {
+  font = loadFont("137.otf");
   createCanvas(800, 600);
   textFont(font);
   puck = new Puck(width / 2, height / 2, 10);
