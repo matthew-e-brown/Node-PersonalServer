@@ -1,6 +1,6 @@
 class Paddle {
   constructor(place) {
-    this.speed = 4;
+    this.speed = 6;
     this.points = 0;
     this.place = place;
     this.w = 20;

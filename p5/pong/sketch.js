@@ -8,13 +8,13 @@ let font;
 
 let started;
 
-// function preload() {
-//   font = loadFont("137.otf");
-// }
+function preload() {
+  font = loadFont("137.otf");
+}
 
 function setup() {
   createCanvas(800, 600);
-  // textFont(font);
+  textFont(font);
   puck = new Puck(width / 2, height / 2, 10);
   left = new Paddle(LEFT);
   right = new Paddle(RIGHT);
@@ -32,7 +32,7 @@ function draw() {
   if (!started) {
     textAlign(CENTER, CENTER);
     textSize(18);
-    text("Click to Start!", width / 2, height / 2);
+    text("Click/Space to Start!", width / 2, height / 2);
   } else {
     puck.update();
     puck.show();
@@ -88,17 +88,22 @@ function getSection(paddle, y) {
 }
 
 function keyPressed() {
-  if (keyCode === 87) left.up = true;
-  if (keyCode === 83) left.down = true;
-  // ---
-  if (keyCode === 73) right.up = true;
-  if (keyCode === 75) right.down = true;
+  if (started) {
+    if (keyCode === 87) left.up = true;
+    if (keyCode === 83) left.down = true;
+    // ---
+    if (keyCode === 73) right.up = true;
+    if (keyCode === 75) right.down = true;
+ }
+ if (keyCode == 32) started = true;
 }
 
 function keyReleased() {
-  if (keyCode === 87) left.up = false;
-  if (keyCode === 83) left.down = false;
-  // ---
-  if (keyCode === 73) right.up = false;
-  if (keyCode === 75) right.down = false;
+  if (started) {
+    if (keyCode === 87) left.up = false;
+    if (keyCode === 83) left.down = false;
+    // ---
+    if (keyCode === 73) right.up = false;
+    if (keyCode === 75) right.down = false;
+  }
 }
