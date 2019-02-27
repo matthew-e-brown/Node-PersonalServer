@@ -47,7 +47,7 @@ class Rocket {
     //Gravity:
     this.applyForce(createVector(0, 0.005), false);
 
-    let edges = this.edges();
+    const edges = this.edges();
     if (edges[0] || edges[2] || edges[3]) {
       this.wallBumps++;
       if (edges[0]) {
@@ -67,9 +67,9 @@ class Rocket {
 
     //Obstacles:
     if (obstacles) {
-      for (let obs of obstacles) {
+      for (const obs of obstacles) {
         if (obs.collideRect(this.pos.x, this.pos.y, this.size, this.size)) {
-          this.applyForce(this.pos.copy().add(new SimpleVector(this.size * 0.5, this.size * 0.5)).sub(new SimpleVector(obs.x + obs.w * 0.5, obs.y + obs.h * 0.5)).setMag(this.vel.mag()));
+          this.applyForce(this.pos.copy().add(new SimpleVector(10, 10)).sub(new SimpleVector(obs.x + obs.w * 0.5, obs.y + obs.h * 0.5)).setMag(this.vel.mag()));
         }
       }
     }

@@ -7,10 +7,10 @@ class Obstacle {
   }
 
   collideRect(x, y, w, h) {
-    //Is the RIGHT edge of r1 to the RIGHT of the LEFT edge of r2?
-    // Is the LEFT edge of r1 to the LEFT of the RIGHT edge of r2?
-    // Is the BOTTOM edge of r1 BELOW the TOP edge of r2?
-    // Is the TOP edge of r1 ABOVE the BOTTOM edge of r2?
+    return (this.x + this.w >= x) && // Is the RIGHT edge of r1 to the RIGHT of the LEFT edge of r2?
+      (this.x <= x + w) && // Is the LEFT edge of r1 to the LEFT of the RIGHT edge of r2?
+      (this.y + this.h >= y) && // Is the BOTTOM edge of r1 BELOW the TOP edge of r2?
+      (this.y <= y + h);// Is the TOP edge of r1 ABOVE the BOTTOM edge of r2?
   }
 
   show() {

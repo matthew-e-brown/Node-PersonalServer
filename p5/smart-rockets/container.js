@@ -8,6 +8,7 @@ class Container {
 
     this.rockets; //must be declared here for scope
     this.generateFresh();
+    this.generations = 1;
 
     this.obstacles;
     this.generateObstacles(5);
@@ -36,6 +37,7 @@ class Container {
   }
 
   generateNext() {
+    this.generations++;
     for (let r of this.rockets) {
       r.fitness = r.calculateFitness(this.target);
     }

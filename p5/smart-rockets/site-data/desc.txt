@@ -1,0 +1,1 @@
+Generates a group of 'rockets' with a series of random thrust vectors, which are mated together based on fitness to collectively learn the optimal path to a target.
