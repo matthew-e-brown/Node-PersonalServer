@@ -61,7 +61,7 @@ a.noChange:hover {
 }
 
 .bottom-spacer {
-  border-bottom: 2px solid rgba(127, 127, 127, 0.075);
+  border-bottom: 2px solid rgba(127, 127, 127, 0.15);
   padding-bottom: 2em;
 }
 
@@ -82,25 +82,45 @@ a.noChange:hover {
   width: 4rem;
   flex-grow: 1;
   margin: auto 0.25em;
-}
-
-.title {
-  min-width: 6em;
-  font-variant: small-caps;
-  line-height: 1.1em;
-  text-align: center;
-  font-size: 3.5em;
-  margin-top: 30px;
-  padding-bottom: 7.5px;
-  border-bottom: 2px solid white;
-  align-self: baseline;
-}
-
-.greet {
   min-width: 250px;
   font-size: 1em;
   padding-top: 15px;
   align-self: flex-end;
+}
+
+.title>h1 {
+  font-size: 3em;
+  font-variant: small-caps;
+  text-align: center;
+  border-bottom: 2px solid #FFFFFF;
+}
+
+#face1 {
+  -webkit-transition: opacity 750ms cubic-bezier(1,0,.80,.70);
+  -o-transition: opacity 750ms cubic-bezier(1,0,.80,.70);
+  transition: opacity 750ms cubic-bezier(1,0,.80,.70);
+}
+
+#face1:hover {
+  opacity: 0;
+}
+
+.intro-images {
+  position: relative;
+  margin: 0 auto;
+  width: 12vw;
+  height: 12vw;
+  min-width: 120px;
+  min-height: 120px;
+}
+
+.intro-face {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
 }
 
 .socials>* {
@@ -150,7 +170,6 @@ a.noChange:hover {
 /* .social-link:hover>svg path {
   fill: #0061D1;
 } */
-
 .sketches {
   display: flex;
   flex-wrap: wrap;
@@ -250,17 +269,16 @@ a.noChange:hover {
 
 .tab-holder {
   display: flex;
-  flex-flow: row wrap/*-reverse*/;
+  flex-flow: row wrap
+    /*-reverse*/
+  ;
   justify-content: flex-start;
   align-items: flex-end;
   align-content: flex-end;
-
   margin: 15px 30px;
   padding: 1.2em;
   background-color: rgb(51, 51, 51);
-
   border-radius: 7.5px;
-
   /* position: relative;
   bottom: 0em; */
 }
