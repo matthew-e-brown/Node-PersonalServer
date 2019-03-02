@@ -50,8 +50,11 @@
   </section>
 
   <section id="about" class="main about bottom-spacer">
-    <p>
-      This website will act mostly as a repository for my JavaScript projects, as well as host links to my other programming projects. Look below for a list of my in-browser (p5.js) examples and projects.
+    <p class="indent">
+      This website will act mostly as a repository for my JavaScript projects, as well as host links to my other programming projects.
+    </p>
+    <p class="indent">
+      Below, you'll find a list of my aforementioned JavaScript projects. They're written in <a href="https://p5js.org/">p5.js</a>, a framework that allows for the creation of visual programs ("sketches") using HTML5 canvas. It is based on <a href="https://processing.org/">Processing</a>, which is the same idea, but in Java.
     </p>
   </section>
 
@@ -66,7 +69,7 @@
             inner += `<div class="sketch-container">
               <h3>${sketch.title}</h3>
               <h4>${sketch.dateString}</h4>
-              <p class="indent">${sketch.desc}</p>
+              <p class="small-indent">${sketch.desc}</p>
               <button onclick="setFrame('${sketch.pathToSrc}')" class="button">Run Sketch</button>
               <button onclick="setPreview('${sketch.pathToFolder}')" class="button">View Source</button>
             </div>`
