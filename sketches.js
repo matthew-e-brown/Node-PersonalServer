@@ -14,6 +14,8 @@ function setFrame(path) {
     }
 
     holder.className = holder.className.replace(/\bpreview-hidden\b/, "preview-shown");
+    const sketches = document.getElementById("sketches");
+    if (!/bottom-spacer/.test(sketches.className)) sketches.className += " bottom-spacer";
 
     setTimeout(() => holder.scrollIntoView({
       block: 'end',
@@ -55,6 +57,11 @@ function setPreview(pathToFolder) {
   .then(() => {
     const element = /*$(`#source`)[0]*/document.getElementById("source");
     element.className = element.className.replace(/hidden/, `shown`);
+    const sketches = document.getElementById("sketches");
+    if (!/bottom-spacer/.test(sketches.className)) sketches.className += " bottom-spacer";
+    const preview = document.getElementById("preview");
+    if (!/bottom-spacer/.test(preview.className)) preview.className += " bottom-spacer";
+
     setTimeout(element.scrollIntoView({block: "end", behavior: "smooth"}), 100);
   });
 }
