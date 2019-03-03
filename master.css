@@ -29,7 +29,7 @@ h4 {
   font-weight: 600;
 }
 
-p, a, span, button {
+p, a, span.normal, button {
   font-family: 'roboto', sans-serif;
 }
 
