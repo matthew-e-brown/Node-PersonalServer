@@ -34,19 +34,18 @@
     <p>Here's where you can find me:</p>
     <div class="social-list">
       <a class="social-link" href="https://github.com/matthew-e-brown" target="_blank">
-        <img class="link-svg" src="site-images/external-branding/GitHub-White.svg" alt="GitHub" />
+        <img class="link-svg svg-replace" src="site-images/external-branding/GitHub-White.svg" alt="GitHub" />
       </a>
       <a class="social-link" href="https://stackoverflow.com/users/10549827/" target="_blank">
-        <img class="link-svg" src="site-images/external-branding/StackOverflow-White.svg" alt="StackOverflow" />
+        <img class="link-svg svg-replace" src="site-images/external-branding/StackOverflow-White.svg" alt="StackOverflow" />
       </a>
       <a class="social-link" href="https://twitter.com/MattShnoop" target="_blank">
-        <img class="link-svg" src="site-images/external-branding/Twitter-White.svg" alt="Twitter" />
+        <img class="link-svg svg-replace" src="site-images/external-branding/Twitter-White.svg" alt="Twitter" />
       </a>
       <a class="social-link" href="https://www.linkedin.com/in/matthewebrown17" target="_blank">
-        <img class="link-svg" src="site-images/external-branding/LinkedIn-White.svg" alt="LinkedIn" />
+        <img class="link-svg svg-replace" src="site-images/external-branding/LinkedIn-White.svg" alt="LinkedIn" />
       </a>
     </div>
-    <script>svgConvert();</script>
   </section>
 
   <section id="about" class="main about bottom-spacer">
@@ -58,8 +57,41 @@
     </p>
   </section>
 
-  <section id="sketches" class="main sketches">
+  <section id="sketches" class="main">
+    <div class="sort-option">
+      <span id="sort1">Oldest</span>
+      <button id="sortButton" onclick="sortOrder()" class="button b-circle b-sorter">
+        <img src="site-images/chevron.svg" class="svg-replace" alt="">
+      </button>
+      <span id="sort2">Newest</span>
+    </div>
     <script>
+    function sortOrder() {
+      // I Tried doing this asynchronously. Gave up.
+      // Gist: https://goo.gl/sWFM6K
+      const delay = 250;//ms
+      const sketchList = $("#sketchList");
+      const sort1 = $("#sort1");
+      const sort2 = $("#sort2");
+
+      [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 0}, delay));
+      setTimeout(() => {
+        // Reverse the sketchlist
+        const sketches = sketchList.children("div");
+        sketchList.append(sketches.get().reverse());
+
+        // Swap the text
+        let temp = sort1.html();
+        sort1.html(sort2.html());
+        sort2.html(temp);
+
+        // Make things visible again
+        [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 1}, delay));
+      }, delay);
+    }
+    </script>
+    <div id="sketchList" class="sketches">
+      <script>
       $.ajax({
         url: "/getSketchList",
         success: response => {
@@ -67,17 +99,18 @@
           let inner = "";
           data.forEach((sketch) => {
             inner += `<div class="sketch-container">
-              <h3>${sketch.title}</h3>
-              <h4>${sketch.dateString}</h4>
-              <p class="small-indent">${sketch.desc}</p>
-              <button onclick="setFrame('${sketch.pathToSrc}')" class="button">Run Sketch</button>
-              <button onclick="setPreview('${sketch.pathToFolder}')" class="button">View Source</button>
+            <h3>${sketch.title}</h3>
+            <h4>${sketch.dateString}</h4>
+            <p class="small-indent">${sketch.desc}</p>
+            <button onclick="setFrame('${sketch.pathToSrc}')" class="button b-rect b-sketch">Run Sketch</button>
+            <button onclick="setPreview('${sketch.pathToFolder}')" class="button b-rect b-sketch">View Source</button>
             </div>`
           });
-          $("#sketches").html(inner);
+          $("#sketchList").html(inner);
         } // End of Success
       }); // End of Ajax
-    </script>
+      </script>
+    </div>
   </section>
 
   <section id="preview" class="main preview-hidden">
@@ -89,6 +122,7 @@
     <div id="codeblocks" class="code-holder"></div>
   </section>
 
+  <script>svgConvert(); //Allows me to use CCS to change the fill of the .SVGs on hover</script>
 </body>
 
 </html>
