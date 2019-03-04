@@ -60,36 +60,11 @@
   <section id="sketches" class="main">
     <div class="sort-option">
       <span class="normal" id="sort1">Oldest</span>
-      <button id="sortButton" onclick="sortOrder()" class="button b-circle b-sorter">
+      <button id="sortButton" onclick="reverseSketchList()" class="button b-circle b-sorter">
         <img src="site-images/chevron.svg" class="svg-replace" alt="">
       </button>
       <span class="normal" id="sort2">Newest</span>
     </div>
-    <script>
-    function sortOrder() {
-      // I Tried doing this asynchronously. Gave up.
-      // Gist: https://goo.gl/sWFM6K
-      const delay = 250;//ms
-      const sketchList = $("#sketchList");
-      const sort1 = $("#sort1");
-      const sort2 = $("#sort2");
-
-      [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 0}, delay));
-      setTimeout(() => {
-        // Reverse the sketchlist
-        const sketches = sketchList.children("div");
-        sketchList.append(sketches.get().reverse());
-
-        // Swap the text
-        let temp = sort1.html();
-        sort1.html(sort2.html());
-        sort2.html(temp);
-
-        // Make things visible again
-        [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 1}, delay));
-      }, delay);
-    }
-    </script>
     <div id="sketchList" class="sketches">
       <script>
       $.ajax({

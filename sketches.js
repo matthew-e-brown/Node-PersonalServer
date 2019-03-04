@@ -1,3 +1,27 @@
+function reverseSketchList() {
+  // I Tried doing this asynchronously. Gave up.
+  // Gist: https://goo.gl/sWFM6K
+  const delay = 250;//ms
+  const sketchList = $("#sketchList");
+  const sort1 = $("#sort1");
+  const sort2 = $("#sort2");
+
+  [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 0}, delay));
+  setTimeout(() => {
+    // Reverse the sketchlist
+    const sketches = sketchList.children("div");
+    sketchList.append(sketches.get().reverse());
+
+    // Swap the text
+    let temp = sort1.html();
+    sort1.html(sort2.html());
+    sort2.html(temp);
+
+    // Make things visible again
+    [sort1, sort2, sketchList].forEach(e => e.animate({'opacity': 1}, delay));
+  }, delay);
+}
+
 function setFrame(path) {
   const frame = document.getElementById("sketchDisplay");
   const holder = document.getElementById("preview");
