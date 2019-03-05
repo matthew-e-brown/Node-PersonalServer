@@ -22,6 +22,12 @@ function reverseSketchList() {
   }, delay);
 }
 
+function reverseWithCookie() {
+  const sort = getCookie('sketchSortState');
+  setCookie('sketchSortState', (sort == 'otn') ? 'nto' : 'otn');
+  reverseSketchList();
+}
+
 function setFrame(path) {
   const frame = document.getElementById("sketchDisplay");
   const holder = document.getElementById("preview");
@@ -38,6 +44,8 @@ function setFrame(path) {
     }
 
     holder.className = holder.className.replace(/\bpreview-hidden\b/, "preview-shown");
+
+    // Add spacer to bottom of sketches list
     const sketches = document.getElementById("sketches");
     if (!/bottom-spacer/.test(sketches.className)) sketches.className += " bottom-spacer";
 
@@ -81,8 +89,12 @@ function setPreview(pathToFolder) {
   .then(() => {
     const element = /*$(`#source`)[0]*/document.getElementById("source");
     element.className = element.className.replace(/hidden/, `shown`);
+
+    // Add spacer to the list of sketches
     const sketches = document.getElementById("sketches");
     if (!/bottom-spacer/.test(sketches.className)) sketches.className += " bottom-spacer";
+
+    // Add spacer to the list sketch preview
     const preview = document.getElementById("preview");
     if (!/bottom-spacer/.test(preview.className)) preview.className += " bottom-spacer";
 

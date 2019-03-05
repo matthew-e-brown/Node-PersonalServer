@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="js-libs/prism-themes/prism-okaidia.css">
   <link rel="stylesheet" href="master.css">
   <script src="sketches.js"></script>
+  <script src="cookies.js"></script>
   <script src="svg-converter.js"></script>
 </head>
 
@@ -58,17 +59,19 @@
   </section>
 
   <section id="sketches" class="main">
-    <div class="sort-option">
-      <span class="normal" id="sort1">Oldest</span>
-      <button id="sortButton" onclick="reverseSketchList()" class="button b-circle b-sorter">
-        <img src="site-images/chevron.svg" class="svg-replace" alt="">
-      </button>
-      <span class="normal" id="sort2">Newest</span>
+    <div id="sorter" class="sort-option">
     </div>
     <div id="sketchList" class="sketches">
       <script>
+      let sortState = getCookie('sketchSortState');
+      if (sortState == undefined) {
+        setCookie('sketchSortState', 'otn');
+        sortState = getCookie('sketchSortState');
+      }
+
       $.ajax({
         url: "/getSketchList",
+        data: { sort: sortState },
         success: response => {
           const data = JSON.parse(response);
           let inner = "";
@@ -82,6 +85,13 @@
             </div>`
           });
           $("#sketchList").html(inner);
+
+          inner = `<span class="normal" id="sort1">${sortState == 'otn' ? 'Oldest' : 'Newest'}</span>
+          <button id="sortButton" onclick="reverseWithCookie()" class="button b-circle b-sorter">
+            <img src="site-images/chevron.svg" class="svg-replace" alt="">
+          </button>
+          <span class="normal" id="sort2">${sortState == 'otn' ? 'Newest' : 'Oldest'}</span>`;
+          $("#sorter").html(inner);
         } // End of Success
       }); // End of Ajax
       </script>
