@@ -14,6 +14,7 @@ const server = app.listen(80, () => {
 app.use(express.static("public"));
 
 app.get("/getSketchList", (request, response) => {
+  const sortState = request.query.sort;
   let folderNames = [];
   let paths = [];
   fs.readdirSync("public/p5/").forEach((file) => {
@@ -66,8 +67,9 @@ app.get("/getSketchList", (request, response) => {
     }
   }
 
-  reply.sort((a, b) => a.dateUnix - b.dateUnix);
-  // for (let i = 0; i < reply.length; i++) delete reply[i].dateUnix;
+  // If sortState is not NewToOld, sort OldToNew.
+  // Done this way so that an undefined value gets the default sort, OTN.
+  reply.sort((a, b) => sortState != 'nto' ? a.dateUnix - b.dateUnix : b.dateUnix - a.dateUnix);
 
   response.send(JSON.stringify(reply));
 });
