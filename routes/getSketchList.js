@@ -65,4 +65,25 @@ router.get('/', (request, response, next) => {
   response.send(JSON.stringify(reply));
 });
 
+function dateFormatCustom(date) {
+  const n = date.getDate(); //day of month, 0 - 31
+  const m = date.getMonth(); // 0 - 11
+  const y = date.getFullYear(); // 2019
+
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+
+  return `${months[m]}. ${n}${((day) => {
+    const ld = day.toString().split('').pop(); //last digit
+    switch (ld) {
+      case '1': return (day != 11) ? 'st' : 'th';
+      case '2': return (day != 12) ? 'nd' : 'th';
+      case '3': return (day != 13) ? 'rd' : 'th';
+      default: return 'th';
+    }
+  })(n)}, ${y}`;
+}
+
 module.exports = router;
