@@ -61,41 +61,22 @@
   <section id="sketches" class="main">
     <h2>My p5.js sketches</h2>
     <div id="sorter" class="sort-option">
+      <span class="normal" id="sort1"><%= sortState == 'otn' ? 'Oldest' : 'Newest' %></span>
+      <button id="sortButton" onclick="reverseWithCookie()" class="button b-circle b-sorter">
+        <img src="site-images/chevron.svg" class="svg-replace" alt="">
+      </button>
+      <span class="normal" id="sort2"><%= sortState == 'otn' ? 'Newest' : 'Oldest' %></span>
     </div>
     <div id="sketchList" class="sketches">
-      <script>
-      let sortState = getCookie('sketchSortState');
-      if (sortState == undefined) {
-        setCookie('sketchSortState', 'otn');
-        sortState = getCookie('sketchSortState');
-      }
-
-      $.ajax({
-        url: "/getSketchList",
-        data: { sort: sortState },
-        success: response => {
-          const data = JSON.parse(response);
-          let inner = "";
-          data.forEach((sketch) => {
-            inner += `<div class="sketch-container">
-            <h3>${sketch.title}</h3>
-            <h4>${sketch.dateString}</h4>
-            <p class="small-indent">${sketch.desc}</p>
-            <button onclick="setFrame('${sketch.pathToSrc}')" class="button b-rect b-sketch">Run Sketch</button>
-            <button onclick="setPreview('${sketch.pathToFolder}')" class="button b-rect b-sketch">View Source</button>
-            </div>`
-          });
-          $("#sketchList").html(inner);
-
-          inner = `<span class="normal" id="sort1">${sortState == 'otn' ? 'Oldest' : 'Newest'}</span>
-          <button id="sortButton" onclick="reverseWithCookie()" class="button b-circle b-sorter">
-            <img src="site-images/chevron.svg" class="svg-replace" alt="">
-          </button>
-          <span class="normal" id="sort2">${sortState == 'otn' ? 'Newest' : 'Oldest'}</span>`;
-          $("#sorter").html(inner);
-        } // End of Success
-      }); // End of Ajax
-      </script>
+      <% sketches.forEach(sketch => { %>
+        <div class="sketch-container">
+          <h3><%= sketch.title %></h3>
+          <h4><%= sketch.dateString %></h4>
+          <p class="small-indent"><%= sketch.desc.slice(0, -1) //cut off new line %></p>
+          <button onclick="setFrame('<%= sketch.pathToSrc %>')" class="button b-rect b-sketch">Run Sketch</button>
+          <button onclick="setPreview('<%= sketch.pathToFolder %>')" class="button b-rect b-sketch">View Source</button>
+        </div>
+      <% }); %>
     </div>
   </section>
 
