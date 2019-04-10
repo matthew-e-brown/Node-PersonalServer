@@ -10,8 +10,14 @@ const server = app.listen(80, () => {
   console.log(`Listening on port #${server.address().port}.`);
 });
 
+app.set('view engine', 'ejs');
+app.set('views', './public/');
+
 /* Host the site */
-app.use(express.static("public"));
+app.use(express.static('public'));
+app.get('/', (request, response) => {
+  response.render('index');
+});
 
 /* Host my routes */
 app.use('/getSketchList', sketchlist);
@@ -23,7 +29,7 @@ app.use((request, response, next) => {
   response.status(404);
 
   if (request.accepts('html')) {
-    response.redirect('404.html');
+    response.render('404');
     return;
   }
 
