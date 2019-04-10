@@ -3,7 +3,7 @@ const fs = require("fs");
 const express = require('express');
 const router = express.Router();
 
-router.get("/", (request, response, next) => {
+function func(request) {
   const folder = request.query.containingFolder;
   const mainFile = request.query.mainFile; //The site can send the name of a mainFile
   const reply = [];
@@ -21,7 +21,11 @@ router.get("/", (request, response, next) => {
       else reply[reply.length - 1].mainFile = false; //Tells whether the file is the one to be shown first
     }
   });
-  response.send(JSON.stringify(reply));
+  return JSON.stringify(reply);
+}
+
+router.get("/", (request, response, next) => {
+  response.send(func(request));
 });
 
-module.exports = router;
+module.exports = { router, func };
