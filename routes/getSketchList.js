@@ -4,8 +4,7 @@ const fs = require("fs");
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (request, response, next) => {
-  const sortState = request.query.sort;
+function func(sortState) {
   let folderNames = [];
   let paths = [];
   fs.readdirSync("public/p5/").forEach((file) => {
@@ -61,8 +60,11 @@ router.get('/', (request, response, next) => {
   // If sortState is not NewToOld, sort OldToNew.
   // Done this way so that an undefined value gets the default sort, OTN.
   reply.sort((a, b) => sortState != 'nto' ? a.dateUnix - b.dateUnix : b.dateUnix - a.dateUnix);
+  return JSON.stringify(reply);
+}
 
-  response.send(JSON.stringify(reply));
+router.get('/', (request, response, next) => {
+  response.send(func(request.cookies['sketchSortState']));
 });
 
 function dateFormatCustom(date) {
@@ -86,4 +88,4 @@ function dateFormatCustom(date) {
   })(n)}, ${y}`;
 }
 
-module.exports = router;
+module.exports = { router, func };
