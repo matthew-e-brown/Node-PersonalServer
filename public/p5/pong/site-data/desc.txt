@@ -1,0 +1,1 @@
+The classic Atari game, recreated with p5.js. You know what Pong is. This game is 2-player, on one keyboard.

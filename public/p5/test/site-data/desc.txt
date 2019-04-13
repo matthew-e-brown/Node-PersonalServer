@@ -1,0 +1,1 @@
+The first thing I did with JavaScript, ever. Balls bouncing up and down act as vertices for a shape. They can be hidden or shown with the mouse.

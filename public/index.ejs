@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Matthew Brown</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://use.typekit.net/qiv6yxq.css">
+  <script src="js-libs/jquery-3.3.1.min.js"></script>
+  <script src="js-libs/prism.js"></script>
+  <link rel="stylesheet" href="js-libs/prism-themes/prism-okaidia.css">
+  <link rel="stylesheet" href="master.css">
+  <script src="sketches.js"></script>
+  <script src="cookies.js"></script>
+  <script src="svg-converter.js"></script>
+</head>
+
+<body>
+  <section id="head" class="main head bottom-spacer">
+    <div class="title">
+      <h1>Matthew Brown</h1>
+      <div class="intro-images">
+        <img id="face1" style="z-index: 2" class="intro-face" src="site-images/myface-digital.png" alt="My Face, Digital">
+        <img id="face2" style="z-index: 1" class="intro-face" src="site-images/myface-real.png" alt="My Face, Image">
+      </div>
+    </div>
+    <div class="greet">
+      <h2 class="indent">Hi!</h2>
+      <p class="indent">I'm a university student studying Computer Science at Trent University as part of their inaugural run of the Computing Systems Co-op program.</p>
+      <p class="indent">I've got experience with HTML, CSS, and JavaScript, as well as p5.js and Processing (and technically, by extension, Java), and a little bit of C#. I'm also moderately experienced with Photoshop, Illustrator, Premiere Pro, and After Effects.</p>
+    </div>
+  </section>
+
+  <section id="socials" class="main socials bottom-spacer">
+    <h2>Where you can find me</h2>
+    <div class="social-list">
+      <a class="social-link" href="https://github.com/matthew-e-brown" target="_blank">
+        <img class="link-svg svg-replace" src="site-images/external-branding/GitHub-White.svg" alt="GitHub" />
+      </a>
+      <a class="social-link" href="https://stackoverflow.com/users/10549827/" target="_blank">
+        <img class="link-svg svg-replace" src="site-images/external-branding/StackOverflow-White.svg" alt="StackOverflow" />
+      </a>
+      <a class="social-link" href="https://twitter.com/MattShnoop" target="_blank">
+        <img class="link-svg svg-replace" src="site-images/external-branding/Twitter-White.svg" alt="Twitter" />
+      </a>
+      <a class="social-link" href="https://www.linkedin.com/in/matthewebrown17" target="_blank">
+        <img class="link-svg svg-replace" src="site-images/external-branding/LinkedIn-White.svg" alt="LinkedIn" />
+      </a>
+    </div>
+  </section>
+
+  <section id="about" class="main about bottom-spacer">
+    <h2>About this page</h2>
+    <p class="indent">
+      This website will act mostly as a repository for my JavaScript projects, as well as host links to my other programming projects.
+    </p>
+    <p class="indent">
+      Below, you'll find a list of my aforementioned JavaScript projects. They're written in <a href="https://p5js.org/">p5.js</a>, a framework that allows for the creation of visual programs ("sketches") using HTML5 canvas. It is based on <a href="https://processing.org/">Processing</a>, which is the same idea, but in Java.
+    </p>
+  </section>
+
+  <section id="sketches" class="main">
+    <h2>My p5.js sketches</h2>
+    <div id="sorter" class="sort-option">
+      <span class="normal" id="sort1"><%= sortState == 'otn' ? 'Oldest' : 'Newest' %></span>
+      <button id="sortButton" onclick="reverseWithCookie()" class="button b-circle b-sorter">
+        <img src="site-images/chevron.svg" class="svg-replace" alt="">
+      </button>
+      <span class="normal" id="sort2"><%= sortState == 'otn' ? 'Newest' : 'Oldest' %></span>
+    </div>
+    <div id="sketchList" class="sketches">
+      <% sketches.forEach(sketch => { %>
+        <div class="sketch-container">
+          <h3><%= sketch.title %></h3>
+          <h4><%= sketch.dateString %></h4>
+          <p class="small-indent"><%= sketch.desc.slice(0, -1) //cut off new line %></p>
+          <button onclick="setFrame('<%= sketch.pathToSrc %>')" class="button b-rect b-sketch">Run Sketch</button>
+          <button onclick="setPreview('<%= sketch.pathToFolder %>')" class="button b-rect b-sketch">View Source</button>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <section id="preview" class="main preview-hidden" style="overflow: hidden;">
+    <iframe id="sketchDisplay" class="sketch-displayer"></iframe>
+  </section>
+
+  <section id="source" class="main sourcecode-hidden">
+    <div id="tabs" class="tab-holder"></div>
+    <div id="codeblocks" class="code-holder"></div>
+  </section>
+
+  <script>svgConvert(); //Allows me to use CCS to change the fill of the .SVGs on hover</script>
+</body>
+
+</html>
