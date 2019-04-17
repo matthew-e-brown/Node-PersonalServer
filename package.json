@@ -1,21 +1,20 @@
 {
   "name": "node-personalserver",
-  "version": "1.0.0",
-  "description": "Trying my hand at Node.js.",
+  "version": "1.1.0",
+  "description": "Runs my Personal Portfolio / Information Website.",
   "main": "index.js",
-  "scripts": {
-    "test": "console.log(\"test\");"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matthew-e-brown/Node-PersonalServer.git"
   },
   "keywords": [
     "node.js",
-    "newbie"
+    "personal website",
+    "express",
+    "passenger"
   ],
   "author": "matthew-e-brown",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/matthew-e-brown/Node-PersonalServer/issues"
   },

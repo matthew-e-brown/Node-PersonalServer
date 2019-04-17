@@ -4,14 +4,15 @@
 <head>
   <title>Matthew Brown</title>
   <meta charset="UTF-8">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="/master.css">
   <link rel="stylesheet" href="https://use.typekit.net/qiv6yxq.css">
-  <script src="js-libs/jquery-3.3.1.min.js"></script>
-  <script src="js-libs/prism.js"></script>
-  <link rel="stylesheet" href="js-libs/prism-themes/prism-okaidia.css">
-  <link rel="stylesheet" href="master.css">
-  <script src="sketches.js"></script>
-  <script src="cookies.js"></script>
-  <script src="svg-converter.js"></script>
+  <link rel="stylesheet" href="/js-libs/prism-themes/prism-okaidia.css">
+  <script src="/js-libs/jquery-3.3.1.min.js"></script>
+  <script src="/scripts/svg-converter.js"></script>
+  <script src="/scripts/sketches.js"></script>
+  <script src="/scripts/cookies.js"></script>
+  <script src="/js-libs/prism.js"></script>
 </head>
 
 <body>
@@ -19,8 +20,8 @@
     <div class="title">
       <h1>Matthew Brown</h1>
       <div class="intro-images">
-        <img id="face1" style="z-index: 2" class="intro-face" src="site-images/myface-digital.png" alt="My Face, Digital">
-        <img id="face2" style="z-index: 1" class="intro-face" src="site-images/myface-real.png" alt="My Face, Image">
+        <img id="face2" style="z-index: 1" class="intro-face" src="site-images/myface-real.png" alt="">
+        <img id="face1" style="z-index: 2" class="intro-face" src="site-images/myface-digital.png" alt="">
       </div>
     </div>
     <div class="greet">
@@ -72,7 +73,7 @@
         <div class="sketch-container">
           <h3><%= sketch.title %></h3>
           <h4><%= sketch.dateString %></h4>
-          <p class="small-indent"><%= sketch.desc.slice(0, -1) //cut off new line %></p>
+          <p class="small-indent"><%= sketch.desc.slice(0, -1) /* cut off \n */ %></p>
           <button onclick="setFrame('<%= sketch.pathToSrc %>')" class="button b-rect b-sketch">Run Sketch</button>
           <button onclick="setPreview('<%= sketch.pathToFolder %>')" class="button b-rect b-sketch">View Source</button>
         </div>
@@ -89,7 +90,7 @@
     <div id="codeblocks" class="code-holder"></div>
   </section>
 
-  <script>svgConvert(); //Allows me to use CCS to change the fill of the .SVGs on hover</script>
+  <script>svgConvert();</script>
 </body>
 
 </html>

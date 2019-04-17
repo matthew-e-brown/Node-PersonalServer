@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
@@ -12,7 +14,6 @@ const server = app.listen(80, () => {
 });
 
 app.set('view engine', 'ejs');
-app.set('views', './public/');
 
 app.use(cookieParser());
 
@@ -36,7 +37,10 @@ app.use((request, response, next) => {
   response.status(404);
 
   if (request.accepts('html')) {
-    response.render('404');
+    response.render('error', {
+      status: 404,
+      message: 'File Not Found'
+    });
     return;
   }
 
