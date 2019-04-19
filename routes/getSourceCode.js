@@ -24,8 +24,9 @@ function func(request) {
   return JSON.stringify(reply);
 }
 
-router.get("/", (request, response, next) => {
+router.get("/", (req, res, next) => {
   response.send(func(request));
+  next();
 });
 
 module.exports = { router, func };

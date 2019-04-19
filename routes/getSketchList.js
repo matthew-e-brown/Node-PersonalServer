@@ -47,7 +47,7 @@ function func(sortState) {
       dates.pop(); //get rid of the "" element
 
       for (let d = 0; d < dates.length; d++) dates[d] = new Date(dates[d]);
-      reply[i].dateString = (dates.length < 2) ? dateFormatCustom(dates[0]) : `${dateFormatCustom(dates[0])} to ${dateFormatCustom(dates[1])}`;
+      reply[i].dateString = (dates.length < 2) ? dateFormat(dates[0]) : `${dateFormat(dates[0])} to ${dateFormat(dates[1])}`;
       reply[i].dateUnix = (dates[1]) ? dates[1].getTime() : dates[0].getTime();
       // console.log(`${paths[i]} dates check`);
     } catch (err) {
@@ -63,11 +63,11 @@ function func(sortState) {
   return JSON.stringify(reply);
 }
 
-router.get('/', (request, response, next) => {
-  response.send(func(request.cookies['sketchSortState']));
+router.get('/', (req, res, next) => {
+  res.send(func(req.cookies['sketchSortState']));
 });
 
-function dateFormatCustom(date) {
+function dateFormat(date) {
   const n = date.getDate(); //day of month, 0 - 31
   const m = date.getMonth(); // 0 - 11
   const y = date.getFullYear(); // 2019

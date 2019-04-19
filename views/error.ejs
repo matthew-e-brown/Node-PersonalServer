@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/master.css">
   <link rel="stylesheet" href="https://use.typekit.net/qiv6yxq.css">
-  <title>:/ — <%= status %> Error</title>
+  <title>Uh oh: <%= status %> Error</title>
 </head>
 <body style="text-align: center;">
   <h1>
@@ -12,8 +12,9 @@
      ¯\_(ツ)_/¯
     <sup style="font-size: 50%;"><%= status %></sup>
   </h1>
-  <h2><%= message %></h2>
-  <p><strong>That's an error, Jim.</strong></p>
+  <h2>That's an error, Jim.</h2>
+  <p><strong>For administrators:</strong></p>
+  <p><%= message %></p>
   <p>Why don't you head back <a href="/">home</a> now?</p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "node-personalserver",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Runs my Personal Portfolio / Information Website.",
   "main": "index.js",
   "repository": {

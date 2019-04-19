@@ -7,9 +7,9 @@ This Node.js webserver is running on an [Amazon Lightsail][lightsail] instance, 
 ---
 
 I wouldn't be able to use Node.js and Express for my website if it wasn't for a few key players:
-* [Daniel Shiffman][1], specifically [this YouTube tutorial][2] of his;
-* [This tutorial][3] from Phusion Passenger themselves;
-* And, funny enough, [this other repository][4] for a University that I found while browsing GitHub, which taught me the *proper* way to organize an Express site.
+- [Daniel Shiffman][1], specifically [this YouTube tutorial][2] of his;
+- [This tutorial][3] from Phusion Passenger themselves;
+- And, funny enough, [this other repository][4] for a University that I found while browsing GitHub, which taught me the *proper* way to organize an Express site.
 
 [me]: http://www.matthew-e-brown.com
 [lightsail]: https://aws.amazon.com/lightsail/

@@ -19,11 +19,11 @@ app.use(cookieParser());
 
 /* Host the site */
 app.use(express.static('public'));
-app.get('/', (request, response) => {
-  response.render('index', {
+app.get('/', (req, res) => {
+  res.render('index', {
     // Get the sketch list from the function in sketchlist
-    sketches: JSON.parse(sketchlist.func(request.cookies['sketchSortState'])),
-    sortState: request.cookies['sketchSortState']
+    sketches: JSON.parse(sketchlist.func(req.cookies['sketchSortState'])),
+    sortState: req.cookies['sketchSortState']
   });
 });
 
@@ -33,16 +33,20 @@ app.use('/getSourceCode', sourcecode.router);
 
 /* Since this is the last route, it will be the default
  * in the event of a 404. Hence, it is the 404 route. */
-app.use((request, response, next) => {
-  response.status(404);
-
-  if (request.accepts('html')) {
-    response.render('error', {
-      status: 404,
-      message: 'File Not Found'
-    });
-    return;
+app.use((req, res, next) => {
+  throw {
+    status: 404,
+    message: 'File not found.'
   }
+});
 
-  response.type('txt').send('Error 404: Not Found.')
+app.use((err, req, res, next) => {
+  console.error(err);
+  if (req.accepts('html')) {
+    res.render('error', {
+      status: err.status || 500,
+      message: err.message,
+      detail: err.stack
+    });
+  } else res.type('txt').send('Error 404: Not Found.')
 });
