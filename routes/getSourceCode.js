@@ -14,7 +14,7 @@ function func(request) {
       const fileBody = fs.readFileSync(`public/${folder}/${file}`, "utf-8");
       reply.push({
         name: file,
-        body: (extension != "html") ? fileBody : fileBody.replace(/\</g, "&lt").replace(/\>/g, "&gt"),
+        body: (extension != "html" && extension != "ejs") ? fileBody : fileBody.replace(/\</g, "&lt").replace(/\>/g, "&gt"),
         extn: extension
       });
       if (file == mainFile || file == "sketch.js" || file == "index.html") reply[reply.length - 1].mainFile = true;
@@ -25,7 +25,7 @@ function func(request) {
 }
 
 router.get("/", (req, res, next) => {
-  response.send(func(request));
+  res.type('json').send(func(req));
   next();
 });
 
