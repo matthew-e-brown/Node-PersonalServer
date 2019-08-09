@@ -1,3 +1,6 @@
+#### I've gone back to using PHP for my personal site, and my CentOS instance will be repurposed for other tinkering. See my site here: [matthew-brown.net][me2].
+
+##### Original Readme:
 # Personal Webserver for [matthew-e-brown.com][me]
 
 This server hosts my mostly static website.
@@ -12,6 +15,7 @@ I wouldn't be able to use Node.js and Express for my website if it wasn't for a 
 - And, funny enough, [this other repository][4] for a University that I found while browsing GitHub, which taught me the *proper* way to organize an Express site.
 
 [me]: http://www.matthew-e-brown.com
+[me2]: https://www.matthew-brown.net
 [lightsail]: https://aws.amazon.com/lightsail/
 [nginx]: https://nginx.org/en/
 [passenger]: https://www.phusionpassenger.com/
