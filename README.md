@@ -1,6 +1,11 @@
-#### I've gone back to using PHP for my personal site, and my CentOS instance will be repurposed for other tinkering. See my site here: [matthew-brown.net][me2].
+# Archived Repository
 
-##### Original Readme:
+This repository is no longer in-use, nor is the website it holds; it is here solely for nostalgia/archival purposes.
+
+The original README is below.
+
+---
+
 # Personal Webserver for [matthew-e-brown.com][me]
 
 This server hosts my mostly static website.
@@ -13,6 +18,7 @@ I wouldn't be able to use Node.js and Express for my website if it wasn't for a 
 - [Daniel Shiffman][1], specifically [this YouTube tutorial][2] of his;
 - [This tutorial][3] from Phusion Passenger themselves;
 - And, funny enough, [this other repository][4] for a University that I found while browsing GitHub, which taught me the *proper* way to organize an Express site.
+
 
 [me]: http://www.matthew-e-brown.com
 [me2]: https://www.matthew-brown.net
